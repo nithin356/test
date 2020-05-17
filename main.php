@@ -23,6 +23,7 @@
       <div id="logo" class="pull-left">
         <p style="size:500px; color: white;">Course Management System</p>
       </div>
+      <!--Commit-->
 
       <nav id="nav-menu-container">
         <ul class="nav-menu">
