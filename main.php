@@ -53,7 +53,7 @@ $userdata1 = mysqli_fetch_assoc($getuser1);
           <?php } elseif($getuser1){?>
             <li class="menu-has-children"><a href=""><?php echo $userdata1['uname']; ?> </a>
             <ul>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="../access/logout.php">Logout</a></li>
             </ul>
             </li>
             <?php } ?>
