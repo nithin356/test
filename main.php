@@ -5,6 +5,7 @@ $getuser = mysqli_query($con, "SELECT sname FROM staff where sname='$globaluname
 $userdata = mysqli_fetch_assoc($getuser);
 $getuser1 = mysqli_query($con, "SELECT uname FROM user where uname='$globaluname'");
 $userdata1 = mysqli_fetch_assoc($getuser1);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
