@@ -1,11 +1,5 @@
 <?php
 include 'access/connection.php';
-
-$getuser = mysqli_query($con, "SELECT sname FROM staff where sname='$globaluname1'");
-$userdata = mysqli_fetch_assoc($getuser);
-$getuser1 = mysqli_query($con, "SELECT uname FROM user where uname='$globaluname'");
-$userdata1 = mysqli_fetch_assoc($getuser1);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,16 +38,16 @@ $userdata1 = mysqli_fetch_assoc($getuser1);
         
           if($userlogin)
           {?>
-          <?php if($getuser){?>
-            <li class="menu-has-children"><a href=""><?php echo $userdata['sname']; ?> </a>
+          <?php if(isset($_SESSION['userid'])){?>
+            <li class="menu-has-children"><a href=""><?php echo $globaluname ?> </a>
             <ul>
-            <li><a href="logout.php">Logout</a></li>
+            <li><a href="access/logout.php">Logout</a></li>
             </ul>
             </li>
-          <?php } elseif($getuser1){?>
-            <li class="menu-has-children"><a href=""><?php echo $userdata1['uname']; ?> </a>
+          <?php } elseif(isset($_SESSION['s_id'])){?>
+            <li class="menu-has-children"><a href=""><?php echo $globaluname1; ?> </a>
             <ul>
-            <li><a href="../access/logout.php">Logout</a></li>
+            <li><a href="access/logout.php">Logout</a></li>
             </ul>
             </li>
             <?php } ?>
