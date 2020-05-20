@@ -1,3 +1,11 @@
+<?php
+include 'access/connection.php';
+
+$getuser = mysqli_query($con, "SELECT sname FROM staff where sname='$globaluname1'");
+$userdata = mysqli_fetch_assoc($getuser);
+$getuser1 = mysqli_query($con, "SELECT uname FROM user where uname='$globaluname'");
+$userdata1 = mysqli_fetch_assoc($getuser1);
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,11 +38,32 @@
           <li><a href="#about">Unit Enrolment</a></li>
           <li><a href="#services">Unit details</a></li>
           <li><a href="#portfolio">Time table</a></li>
-          <li class="menu-has-children"><a href="">Login</a>
+          <?php
+        
+          if($userlogin)
+          {?>
+          <?php if($getuser){?>
+            <li class="menu-has-children"><a href=""><?php echo $userdata['sname']; ?> </a>
             <ul>
-              <li><a href="register.php">Register</a></li>
+            <li><a href="logout.php">Logout</a></li>
+            </ul>
+            </li>
+          <?php } elseif($getuser1){?>
+            <li class="menu-has-children"><a href=""><?php echo $userdata1['uname']; ?> </a>
+            <ul>
+            <li><a href="logout.php">Logout</a></li>
+            </ul>
+            </li>
+            <?php } ?>
+          <?php } else {?>
+          <li class="menu-has-children"><a href="">Login/Register</a>
+            <ul>
+            <li><a href="login.php">Login</a></li>
+            <li><a href="register.php">Student Register</a></li>
+            <li><a href="academic-staff-register.php">Staff Register</a></li>
             </ul>
           </li>
+          <?php }?>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>

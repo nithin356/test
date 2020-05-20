@@ -9,14 +9,25 @@ if(isset($_POST['login']))
     $getuser = mysqli_query($con, "SELECT * FROM user WHERE (userid='$uid') AND upassword = '$pwd'");
     $getuserdata = mysqli_fetch_assoc($getuser);
     $getuserrow = mysqli_num_rows($getuser);
+    
     if ($getuserrow == 1) {
         $_SESSION['userid'] = $getuserdata['userid'];
         $_SESSION['uname'] = $getuserdata['uname'];
         echo "<script> window.setTimeout(function(){ window.location.href='main.php' }, 1000); </script>";
     } else {
+        $getuser1 = mysqli_query($con, "SELECT * FROM staff WHERE (s_id='$uid') AND spassword = '$pwd'");
+        $getuserdata1 = mysqli_fetch_assoc($getuser1);
+        $getuserrow1 = mysqli_num_rows($getuser1);
+        if($getuserrow1==1){
+        $_SESSION['s_id'] = $getuserdata1['s_id'];
+        $_SESSION['sname'] = $getuserdata1['sname'];
+        echo "<script> window.setTimeout(function(){ window.location.href='main.php' }, 1000); </script>";
+    } else {
         echo "<script>alert('Invalid Username or Password'); location.href='login.php';</script>";
         $fmsg = "Invalid Username or Password";
     }
+}
+    
 }
 
 ?>

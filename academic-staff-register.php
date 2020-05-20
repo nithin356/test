@@ -7,30 +7,30 @@ if (isset($_POST['button'])) {
     
     $uid = $_POST['uid'];
     $cname = $_POST['cname'];
-    $cadd = $_POST['caddr'];
-    $date = date('Y-m-d',strtotime($_POST['date']));
+    $qual = $_POST['qual'];
+    $expert = $_POST['expert'];
     $cemail = $_POST['cemail'];
     $cmobile = $_POST['cmobile'];
     $apassword = md5($_POST['apassword']);
     $cpassword = md5($_POST['cpassword']);
 
     if ($apassword != $cpassword) {
-        echo "<script>alert('Passwords do not match'); location.href='register.php';</script>";
+        echo "<script>alert('Passwords do not match'); location.href='academic-staff-register.php';</script>";
         $fmsg = "Passwords do not match";
     } else {
 
-        $check = mysqli_query($con, "SELECT * from user WHERE uemail='$cemail' OR umobile='$cmobile'");
+        $check = mysqli_query($con, "SELECT * from staff WHERE uemail='$cemail' OR umobile='$cmobile'");
         $count = mysqli_num_rows($check);
         if ($count > 0) {
-            echo "<script>alert('User already Exists'); location.href='register.php';</script>";
+            echo "<script>alert('User already Exists'); location.href='academic-staff-register.php';</script>";
             $fmsg = "User already Exists";
         } else {
-            $query = mysqli_query($con, "INSERT INTO user (userid,uname,uemail,udate,umobile,uaddr,upassword) VALUES ('$uid','$cname','$cemail','$date','$cmobile','$cadd','$apassword')");
+            $query = mysqli_query($con, "INSERT INTO staff (s_id,sname,semail,expert,smobile,squal,spassword) VALUES ('$uid','$cname','$cemail','$expert','$cmobile','$qual','$apassword')");
             if ($query) {
                 echo "<script>alert('User Registered'); location.href='login.php';</script>";
                 $smsg = "User Registered";
             } else {
-                echo "<script>alert('User Registered Falied'); location.href='register.php';</script>";
+                echo "<script>alert('User Registered Falied'); location.href='academic-staff-register.php';</script>";
                 echo $fmsg = "Registration Falied";
             }
         }
@@ -141,13 +141,13 @@ if (isset($_POST['button'])) {
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fa fa-address-card"></i></span>
                                 </div>
-                                <input type="text" required name="caddr" class="form-control input_user"  placeholder="Address">
+                                <input type="text" required name="qual" class="form-control input_user"  placeholder="qualification (e.g. PhD, Master, etc.)">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                 </div>
-                                <input type="Date" required name="date" class="form-control input_user" >
+                                <input type="text" required name="expert" class="form-control input_user" placeholder="expertise (e.g. Information Systems, Human Computer Interaction, Network Administration, etc.)">
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-append">
