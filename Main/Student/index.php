@@ -1,5 +1,5 @@
 <?php
-include 'access/connection.php';
+include '../../access/connection.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,14 +9,14 @@ include 'access/connection.php';
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
   <!-- Bootstrap CSS File -->
-  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/test/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Libraries CSS Files -->
-  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="/test/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/test/lib/animate/animate.min.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="/test/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -41,22 +41,25 @@ include 'access/connection.php';
           <?php if(isset($_SESSION['userid'])){?>
             <li class="menu-has-children"><a href=""><?php echo $globaluname ?> </a>
             <ul>
-            <li><a href="access/logout.php">Logout</a></li>
+            <li><a href="../Student/Student-dashboard.php">Dashboard</a></li>
+            <li><a href="../../access/logout.php">Logout</a></li>
             </ul>
             </li>
           <?php } elseif(isset($_SESSION['s_id'])){?>
             <li class="menu-has-children"><a href=""><?php echo $globaluname1; ?> </a>
             <ul>
-            <li><a href="access/logout.php">Logout</a></li>
+              
+            <li><a href="../Lecturer/staff-dashboard.php">Dashboard</a></li>
+            <li><a href="../../access/logout.php">Logout</a></li>
             </ul>
             </li>
             <?php } ?>
           <?php } else {?>
           <li class="menu-has-children"><a href="">Login/Register</a>
             <ul>
-            <li><a href="login.php">Login</a></li>
-            <li><a href="register.php">Student Register</a></li>
-            <li><a href="academic-staff-register.php">Staff Register</a></li>
+            <li><a href="../../login.php">Login</a></li>
+            <li><a href="../../register.php">Student Register</a></li>
+            <li><a href="../../academic-staff-register.php">Staff Register</a></li>
             </ul>
           </li>
           <?php }?>
@@ -240,21 +243,16 @@ include 'access/connection.php';
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
   <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/wow/wow.min.js"></script>
-  <script src="lib/waypoints/waypoints.min.js"></script>
-  <script src="lib/counterup/counterup.min.js"></script>
-  <script src="lib/superfish/hoverIntent.js"></script>
-  <script src="lib/superfish/superfish.min.js"></script>
-
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
-
-  <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
+  <script src="/test/lib/jquery/jquery.min.js"></script>
+  <script src="/test/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="/test/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/test/lib/easing/easing.min.js"></script>
+  <script src="/test/lib/wow/wow.min.js"></script>
+  <script src="/test/lib/waypoints/waypoints.min.js"></script>
+  <script src="/test/lib/counterup/counterup.min.js"></script>
+  <script src="/test/lib/superfish/hoverIntent.js"></script>
+  <script src="/test/lib/superfish/superfish.min.js"></script>
+  <script src="/test/js/main.js"></script>
 
 </body>
 </html>
