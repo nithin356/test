@@ -1,4 +1,6 @@
 <?php include '../../access/connection.php';
+include '../../access/userlog.php';
+
 if(!$userlogin)
 {
     echo "<script> window.setTimeout(function(){ window.location.href='/test/index.html' }, 0); </script>";
@@ -82,6 +84,12 @@ if(isset($_POST['submit'])){
               <a href="enrol-tutorial.php" class="nav-link text-dark font-italic bg-light">
                 <i class="far fa-images mr-3 text-primary fa-fw"></i>
                 Enrol Unit and tutorial
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="../../access/logout.php" class="nav-link text-dark font-italic bg-light">
+                <i class="far fa-images mr-3 text-primary fa-fw"></i>
+                Logout
               </a>
             </li>
           </ul>

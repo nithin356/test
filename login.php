@@ -23,10 +23,19 @@ if(isset($_POST['login']))
         $_SESSION['sname'] = $getuserdata1['sname'];
         echo "<script> window.setTimeout(function(){ window.location.href='Main/Student/index.php' }, 1000); </script>";
     } else {
+        $getdc = mysqli_query($con, "SELECT * FROM dclog WHERE (id='$uid') AND pass = '$pwd'");
+        $getdcs = mysqli_fetch_assoc($getdc);
+        $getdcrow = mysqli_num_rows($getdc);
+        if($getdcrow==1){
+        $_SESSION['id'] = $getdcs['id'];
+        $_SESSION['dcname'] = $getdcs['dcname'];
+        echo "<script> window.setTimeout(function(){ window.location.href='Main/DC/index.php' }, 1000); </script>";
+    } else {
         echo "<script>alert('Invalid Username or Password'); location.href='login.php';</script>";
         $fmsg = "Invalid Username or Password";
     }
 }
+    }
     
 }
 

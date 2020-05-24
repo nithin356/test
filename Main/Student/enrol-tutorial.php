@@ -1,4 +1,6 @@
 <?php include '../../access/connection.php';
+include '../../access/userlog.php';
+
 if(!$userlogin)
 {
     echo "<script> window.setTimeout(function(){ window.location.href='/test/index.html' }, 0); </script>";
@@ -8,7 +10,7 @@ if(!$userlogin)
 <html>
   
   <head>
-    <title>Common Cents Party</title>
+    <title>Course Management System</title>
     <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -48,6 +50,12 @@ if(!$userlogin)
               <a href="enrol-tutorial.php" class="nav-link text-dark font-italic bg-light">
                 <i class="far fa-images mr-3 text-primary fa-fw"></i>
                 Enrol Unit and tutorial
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="../../access/logout.php" class="nav-link text-dark font-italic bg-light">
+                <i class="far fa-images mr-3 text-primary fa-fw"></i>
+                Logout
               </a>
             </li>
           </ul>

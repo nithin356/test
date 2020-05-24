@@ -1,5 +1,7 @@
 <?php
 include '../../access/connection.php';
+include '../../access/userlog.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,16 +47,7 @@ include '../../access/connection.php';
             <li><a href="../../access/logout.php">Logout</a></li>
             </ul>
             </li>
-          <?php } elseif(isset($_SESSION['s_id'])){?>
-            <li class="menu-has-children"><a href=""><?php echo $globaluname1; ?> </a>
-            <ul>
-              
-            <li><a href="../Lecturer/staff-dashboard.php">Dashboard</a></li>
-            <li><a href="../../access/logout.php">Logout</a></li>
-            </ul>
-            </li>
-            <?php } ?>
-          <?php } else {?>
+          <?php }} else {?>
           <li class="menu-has-children"><a href="">Login/Register</a>
             <ul>
             <li><a href="../../login.php">Login</a></li>

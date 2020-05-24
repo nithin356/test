@@ -1,11 +1,33 @@
 <?php include '../../access/connection.php';
-include '../../access/userlog.php';
+include '../../access/dclogs.php';
+
 
 if(!$userlogin)
 {
     echo "<script> window.setTimeout(function(){ window.location.href='/test/index.html' }, 0); </script>";
-
 }
+if(isset($_POST['submit']))
+{
+    $unit = $_POST['unit'];
+    $sem = $_POST['sem'];
+$getsem = mysqli_query($con, "SELECT * FROM dc where unit='$unit' and sem='$sem'");
+$getsemdata = mysqli_fetch_assoc($getsem);
+$count = mysqli_num_rows($getsem);
+if ($count > 0) {
+  echo "<script>alert('Already Exists'); location.href='dcreg.php';</script>";
+  $fmsg = "Already Exists";
+}
+else{
+            $query = mysqli_query($con, "INSERT INTO dc (unit,sem) VALUES ('$unit','$sem')");
+            if ($query) {
+                echo "<script>alert('Added'); location.href='add.php';</script>";
+                $smsg = "Added";
+            } else {
+                echo "<script>alert('User Registered Falied'); location.href='add.php';</script>";
+                echo $fmsg = "Falied";
+            }
+    }
+  }
 ?>
 <html>
   
@@ -22,44 +44,16 @@ if(!$userlogin)
   
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
   </head>
-  
+  <style>
+input{
+    width: 100%;
+}
+</style> 
   
   <body>
     <!-- Start vertical navbar -->
     <header id="header">
-       <div class="vertical-nav bg-white" id="sidebar">
-          <div class="py-4 px-3 mb-2 mt-2 bg-light">
-            <div class="align-items-center" id="half">    
-               <a class="navbar-brand text-center" href="#"><h1>C M S</h1></a>
-            </div>
-          </div>
-          <p class="text-gray font-weight-bold text-uppercase px-3 small pb-3 mb-2 mt-3">Main</p>
-          <ul class="nav flex-column bg-white mb-0">
-            <li class="nav-item">
-              <a href="Student-dashboard.php" class="nav-link text-dark font-italic bg-light">
-                <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>Home
-              </a>  
-            </li>
-            <li class="nav-item">
-              <a href="my-profile.php" class="nav-link text-dark font-italic bg-light">
-                <i class="far fa-images mr-3 text-primary fa-fw"></i>
-                My profile
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="enrol-tutorial.php" class="nav-link text-dark font-italic bg-light">
-                <i class="far fa-images mr-3 text-primary fa-fw"></i>
-                Enrol Unit and tutorial
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="../../access/logout.php" class="nav-link text-dark font-italic bg-light">
-                <i class="far fa-images mr-3 text-primary fa-fw"></i>
-                Logout
-              </a>
-            </li>
-          </ul>
-       </div>
+    <?php include 'header.php'; ?>
     </header>
 
     <!-- Start Page content holder -->
@@ -77,13 +71,16 @@ if(!$userlogin)
   
     <div class="row text-white">
     <div class="col-lg-7 mx-auto">
-      <p class="lead">Hello, <?php 
-            if($userlogin){
-            if(isset($_SESSION['userid']))?>
-
-      <b><?php   echo $globaluname; }?></b>
-      <p class="lead text-white">You Can enrol unit and tutorial<a href="#" class="text-white">
-  </p>
+    <form method="POST">
+    <label>Add Semester:*</label>
+    <input type="text" name="sem" required></input>
+    <br/>
+    <label>Add Unit:*</label>
+    <input type="text" name="unit" required></input>
+    <br/>
+    <br/>
+    <input type="submit" name="submit" ></input>
+    </form>
     </div>
   </div>
       
