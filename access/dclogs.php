@@ -4,8 +4,8 @@ session_start();
 
 if(isset($_SESSION['id']))
 {
-    $globaluserid = $_SESSION['id'];
-    $globaluname = $_SESSION['dcname'];
+    $globaluserid2 = $_SESSION['id'];
+    $globaluname2 = $_SESSION['dcname'];
     $userlogin = true;
 }
 else

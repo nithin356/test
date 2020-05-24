@@ -4,8 +4,22 @@ include '../../access/dclogs.php';
 if(!$userlogin)
 {
     echo "<script> window.setTimeout(function(){ window.location.href='/test/index.html' }, 0); </script>";
-
 }
+$getsem1 = mysqli_query($con, "SELECT * FROM lec");
+if(isset($_POST['submit']))
+{
+$access = $_POST['access'];
+$lec = $_POST['lec'];
+        $query = mysqli_query($con, "UPDATE lec SET  access='$access' where lname='$lec'");
+        if ($query) {
+            echo "<script>alert('Access enabled'); location.href='index.php';</script>";
+            $smsg = "Added";
+        } else {
+            echo "<script>alert('Access Falied'); location.href='index.php';</script>";
+            echo $fmsg = "Falied";
+        }
+}
+
 ?>
 <html>
   
@@ -52,13 +66,19 @@ select{
     <form method="POST">
     <label>Select Staff:*</label>
     <select name="lec" id="">
-            <option value=""></option>
-    </select>
+    
+    <option selected hidden>Select</option>
+    <?php 
+    while($getsemdata1 = mysqli_fetch_assoc($getsem1)){
+    ?>
+    <option value="<?php echo $getsemdata1['lname'];?>"><?php echo $getsemdata1['lname'];?></option>
+    <?php } ?></select>
     <br/>
     <label>Add access:*</label>
-    <select name="unit" id="">
-            <option value="1">Grant Access</option>
-            <option value="0">No action allowed</option>
+    <select required name="access" id="" >
+    <option selected hidden>Select</option>
+    <option value="1">Grant Access</option>
+    <option value="0">No action allowed</option>
     </select>
     <br/>
     <br/>

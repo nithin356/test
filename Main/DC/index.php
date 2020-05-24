@@ -50,7 +50,7 @@ if(!$userlogin)
             if($userlogin){
             if(isset($_SESSION['id']))?>
 
-      <b><?php   echo $globaluname; }?></b>
+      <b><?php   echo $globaluname2; }?></b>
       <p class="lead text-white">You Can manage semester and units on this dashboard<a href="#" class="text-white">
   </p>
     </div>

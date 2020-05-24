@@ -18,7 +18,7 @@ if(isset($_POST['submit'])){
     $pass=md5($_POST['pass']);
     $apass=md5($_POST['apass']);
     $cpass=md5($_POST['cpass']);
-    /*$check=md5($getuserdata['upassword']);
+    $check=$getuserdata['upassword'];
     if($pass!=$check)
     {
         echo "<script>alert('Old Password Doesnt match');</script>";

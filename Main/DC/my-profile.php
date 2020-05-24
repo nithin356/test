@@ -5,34 +5,41 @@ if(!$userlogin)
 {
     echo "<script> window.setTimeout(function(){ window.location.href='/test/index.html' }, 0); </script>";
 }
-$getsem1 = mysqli_query($con, "SELECT * FROM dc");
-if(isset($_POST['submit']))
-{
-$lec = $_POST['lec'];
-$unit = $_POST['unit'];
-$getsem = mysqli_query($con, "SELECT * FROM lec where unit='$unit'");
-$getsemdata = mysqli_fetch_assoc($getsem);
-$count = mysqli_num_rows($getsem);
-if ($count > 0) {
-echo "<script>alert('Already Exists'); location.href='dcreg.php';</script>";
-$fmsg = "Already Exists";
-}
-else{
-        $query = mysqli_query($con, "INSERT INTO lec (unit,lname) VALUES ('$unit','$lec')");
-        if ($query) {
-            echo "<script>alert('staff alloted'); location.href='allotment.php';</script>";
-            $smsg = "Added";
+$getuser = mysqli_query($con, "SELECT * FROM dclog WHERE id = '$globaluserid2'");
+$getuserdata = mysqli_fetch_assoc($getuser);
+if(isset($_POST['submit'])){
+    $id=$_POST['id'];
+    $name=$_POST['name'];
+    $pass=md5($_POST['pass']);
+    $apass=md5($_POST['apass']);
+    $cpass=md5($_POST['cpass']);
+    $check=$getuserdata['pass'];
+    if($pass!=$check)
+    {
+        echo "<script>alert('Old Password Doesnt match');</script>";
+    }else{
+    if ($apass != $cpass) {
+        echo "<script>alert('Passwords do not match');</script>";
+        $fmsg = "Passwords do not match";
+    } else {
+        $sql = mysqli_query($con, "UPDATE dclog SET dcname='$name', pass='$apass' WHERE id='$id'");
+        if ($sql) {
+            echo "<script>alert('User Updated'); location.href='index.php';</script>";
+            $smsg = "User Updated";
         } else {
-            echo "<script>alert('staff alloted Falied'); location.href='allotment.php';</script>";
-            echo $fmsg = "Falied";
+            echo "<script>alert('User Update Falied');</script>";
+            echo $fmsg = "update Falied";
         }
+    }
+    }
 }
-}
+
+
 ?>
 <html>
   
   <head>
-    <title>Course Management System</title>
+    <title>Common Cents Party</title>
     <meta charset="utf-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -44,16 +51,12 @@ else{
   
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
   </head>
-  <style>
-select,input{
-    width: 100%;
-}
-</style> 
+  
   
   <body>
     <!-- Start vertical navbar -->
     <header id="header">
-       <?php include 'header.php'; ?>
+    <?php include'header.php'; ?>
     </header>
 
     <!-- Start Page content holder -->
@@ -68,26 +71,31 @@ select,input{
       
     <!-- content -->
         
-  
+<style>
+input{
+    width: 100%;
+}
+</style>  
     <div class="row text-white">
     <div class="col-lg-7 mx-auto">
     <form method="POST">
-    <label>Select Unit:*</label>
-    <select name="unit" >
-    <option selected hidden>Select</option>
-    <?php
-    while($getsemdata1 = mysqli_fetch_assoc($getsem1)){
-    ?>
-    <option value="<?php echo $getsemdata1['unit'];?>"><?php echo $getsemdata1['unit'];?></option>
-    <?php } ?>
-</select>
-    <br/>
-    <label>Add Teacher/Lecturer:*</label>
-    <input type=text required name="lec"/>
-    <br/>
-    <br/>
-    <input type="submit" name="submit" ></input>
+    <label>ID :</label>
+    <input readonly type="text" name="id" value="<?php echo $getuserdata['id'];?>"></input>
+    <br>
+    <label>Name :</label>    
+        <input type="text" name="name" value="<?php echo $getuserdata['dcname'];?>"></input>
+    <br>
+    <label>Password :</label>
+    <input type="password" name="pass" placeholder="Enter Old Password"></input>
+    <input type="password" name="apass" placeholder="Enter New Password"></input>
+    <br>
+    <br>
+        <input type="password" name="cpass" placeholder="Confirm New Password"></input>
+    <br>
+    </br>
+        <input style="color:blue" type="submit" name="submit"></input>
     </form>
+
     </div>
   </div>
       

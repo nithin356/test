@@ -13,25 +13,31 @@
             </li>
             <li class="nav-item">
               <a href="my-profile.php" class="nav-link text-dark font-italic bg-light">
-                <i class="far fa-images mr-3 text-primary fa-fw"></i>
+                <i class="far fa-user mr-3 text-primary fa-fw"></i>
                 My profile
               </a>
             </li>
             <li class="nav-item">
               <a href="add.php" class="nav-link text-dark font-italic bg-light">
-                <i class="far fa-images mr-3 text-primary fa-fw"></i>
+                <i class="far fa-plus mr-3 text-primary fa-fw"></i>
                 Add Unit / semester
             </a>
             </li>
             <li class="nav-item">
               <a href="allotment.php" class="nav-link text-dark font-italic bg-light">
-                <i class="far fa-images mr-3 text-primary fa-fw"></i>
+                <i class="far fa-plus mr-3 text-primary fa-fw"></i>
                 Allot teachers for unit
             </a>
             </li>
             <li class="nav-item">
+              <a href="grant-access.php" class="nav-link text-dark font-italic bg-light">
+                <i class="far fa-key mr-3 text-primary fa-fw"></i>
+              Permission Access
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="../../access/logout.php" class="nav-link text-dark font-italic bg-light">
-                <i class="far fa-images mr-3 text-primary fa-fw"></i>
+                <i class="far fa-sign-out mr-3 text-primary fa-fw"></i>
                 Logout
               </a>
             </li>
