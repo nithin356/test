@@ -6,7 +6,7 @@ if(isset($_POST['login']))
     $uid = $_POST['uid'];
     $pwd = md5($_POST['password']);
 
-    $getuser = mysqli_query($con, "SELECT * FROM user WHERE (uname='$uid') AND upassword = '$pwd'");
+    $getuser = mysqli_query($con, "SELECT * FROM user WHERE (userid='$uid') AND upassword = '$pwd'");
     $getuserdata = mysqli_fetch_assoc($getuser);
     $getuserrow = mysqli_num_rows($getuser);
     

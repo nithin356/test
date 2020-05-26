@@ -22,7 +22,7 @@ if(isset($_POST['submit'])){
     if($pass!=$check)
     {
         echo "<script>alert('Old Password Doesnt match');</script>";
-    }*/
+    }
     if ($apass != $cpass) {
         echo "<script>alert('Passwords do not match');</script>";
         $fmsg = "Passwords do not match";
