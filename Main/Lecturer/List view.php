@@ -1,35 +1,40 @@
-<?php include '../../access/connection.php';
-include '../../access/dclogs.php';
-
+<?php 
+include '../../access/connection.php';
+include '../../access/leclogs.php';
 if(!$userlogin)
 {
     echo "<script> window.setTimeout(function(){ window.location.href='/test/index.html' }, 0); </script>";
-}
-$getsem1 = mysqli_query($con, "SELECT * FROM dc");
-if(isset($_POST['submit']))
-{
-  $lec = $_POST['lec'];
-  $pass = md5($_POST['password']);
 
-$unit = $_POST['unit'];
-$getsem = mysqli_query($con, "SELECT * FROM lec where unit='$unit'");
-$getsemdata = mysqli_fetch_assoc($getsem);
-$count = mysqli_num_rows($getsem);
-if ($count > 0) {
-echo "<script>alert('Already Exists'); location.href='dcreg.php';</script>";
-$fmsg = "Already Exists";
 }
-else{
-        $query = mysqli_query($con, "INSERT INTO lec (unit,lname,pass) VALUES ('$unit','$lec','$pass')");
-        if ($query) {
-            echo "<script>alert('staff alloted'); location.href='allotment.php';</script>";
-            $smsg = "Added";
+if(isset($_POST['insert'])){
+    $id=$_POST['del'];
+    $unit=$_POST['unit'];
+    $sqli = mysqli_query($con,"UPDATE user SET unit=$unit where userid='$id'");
+    if ($sqli) {
+        echo "<script>alert('User Updated');</script>";
+        $smsg = "User Updated";
+    } else {
+        echo "<script>alert('User Update Falied');</script>";
+        echo $fmsg = "update Falied";
+    }
+}
+if(isset($_POST['submit'])){
+    $id=$_POST['del'];
+    $unit=$_POST['unit'];
+
+
+        $sql = mysqli_query($con, "DELETE FROM user WHERE userid='$id'");
+        if ($sql) {
+            echo "<script>alert('User Deleted');</script>";
+            $smsg = "User Updated";
         } else {
-            echo "<script>alert('staff alloted Falied'); location.href='allotment.php';</script>";
-            echo $fmsg = "Falied";
+            echo "<script>alert('User Update Falied');</script>";
+            echo $fmsg = "update Falied";
         }
+        
+
 }
-}
+
 ?>
 <html>
   
@@ -46,16 +51,13 @@ else{
   
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
   </head>
-  <style>
-select,input{
-    width: 100%;
-}
-</style> 
+  
   
   <body>
     <!-- Start vertical navbar -->
     <header id="header">
-       <?php include 'header.php'; ?>
+       
+    <?php include 'header.php'; ?>
     </header>
 
     <!-- Start Page content holder -->
@@ -73,26 +75,56 @@ select,input{
   
     <div class="row text-white">
     <div class="col-lg-7 mx-auto">
+   <style>
+    table, th, td {
+        border: 1px solid black;
+        color: white;
+    }
+    </style>
+    Student List :
+    <table style="width:100%">
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Unit</th>
+    <th>Action</th>
+  </tr>
+
+  <?php
+  $gets = mysqli_query($con, "SELECT * FROM user");
+  while($getstudent=mysqli_fetch_assoc($gets)){
+  ?>
+  <tr>
     <form method="POST">
-    <label>Select Unit:*</label>
+    <td><?php echo $getstudent['userid'];?></td>
+    <td><?php echo $getstudent['uname'];?></td>
+    <?php if($getstudent['unit']=="")
+    {?>
+    <td>
     <select name="unit" >
     <option selected hidden>Select</option>
     <?php
-    while($getsemdata1 = mysqli_fetch_assoc($getsem1)){
+    $getu = mysqli_query($con, "SELECT * FROM dc");
+    while($getunit = mysqli_fetch_assoc($getu)){
     ?>
-    <option value="<?php echo $getsemdata1['unit'];?>"><?php echo $getsemdata1['unit'];?></option>
+    <option value="<?php echo $getunit['unit'];?>"><?php echo $getunit['unit'];?></option>
     <?php } ?>
 </select>
-    <br/>
-    <label>Add Teacher/Lecturer:*</label>
-    <input type=text required name="lec"/>
-    </br>
-    <label>Provide password*</label>
-    <input type=password required name="password"/>
-    <br/>
-    <br/>
-    <input type="submit" name="submit" ></input>
-    </form>
+    </td>
+    <?php } else{?>
+    <td><?php echo $getstudent['unit'];?></td>
+    <?php } ?>
+    <td>
+    <input type="hidden" value="<?php echo $getstudent['userid'];?>" name="del"/>
+        <input type=submit name="submit" value="Delete"/>
+        <?php if($getstudent['unit']=="")
+        {?>
+        <input type=submit name="insert" value="Update"/></td>
+    <?php } ?>
+  </tr>
+  <?php } ?>
+  </form>
+</table>
     </div>
   </div>
       

@@ -4,8 +4,30 @@ include '../../access/userlog.php';
 if(!$userlogin)
 {
     echo "<script> window.setTimeout(function(){ window.location.href='/test/index.html' }, 0); </script>";
-
 }
+$getsem1 = mysqli_query($con, "SELECT * FROM dc");
+
+if(isset($_POST['submit']))
+{
+$unit = $_POST['unit'];
+$getsem = mysqli_query($con, "SELECT * FROM user where unit='$unit'");
+$getsemdata = mysqli_fetch_assoc($getsem);
+$count = mysqli_num_rows($getsem);
+if ($count > 0) {
+  echo "<script>alert('Already Exists'); location.href='enrol-tutorial.php';</script>";
+  $fmsg = "Already Exists";
+}
+else{
+            $query = mysqli_query($con, "INSERT INTO user (unit) VALUES ('$unit')");
+            if ($query) {
+                echo "<script>alert('Added'); location.href='enrol-tutorial.php';</script>";
+                $smsg = "Added";
+            } else {
+                echo "<script>alert('User Registered Falied'); location.href='enrol-tutorial.php';</script>";
+                echo $fmsg = "Falied";
+            }
+    }
+  }
 ?>
 <html>
   
@@ -52,6 +74,13 @@ if(!$userlogin)
                 Enrol Unit and tutorial
               </a>
             </li>
+           </li><li class="nav-item">
+              <a href="timetable.php" class="nav-link text-dark font-italic bg-light">
+                <i class="far fa-images mr-3 text-primary fa-fw"></i>
+              Time Table
+              </a>
+            </li>
+            
             <li class="nav-item">
               <a href="../../access/logout.php" class="nav-link text-dark font-italic bg-light">
                 <i class="far fa-images mr-3 text-primary fa-fw"></i>
@@ -75,15 +104,25 @@ if(!$userlogin)
     <!-- content -->
         
     <style>
-input{
+input,select{
     width: 100%;
 }
 </style> 
     <div class="row text-white">
     <div class="col-lg-7 mx-auto">
     <form method="POST">
-    <label>ID :</label>
-    <input readonly type="text" name="id" value=""></input>
+    <label>Select Unit/Tutorial: *</label>
+    <select name="unit" >
+    <option selected hidden>Select</option>
+    <?php
+    while($getsemdata1 = mysqli_fetch_assoc($getsem1)){
+    ?>
+    <option value="<?php echo $getsemdata1['unit'];?>"><?php echo $getsemdata1['unit'];?></option>
+    <?php } ?>
+</select>
+    </br>
+    </br>
+<input type="submit" name="submit" value="Select Unit/tutorial"/>
     </form>
     </div>
   </div>

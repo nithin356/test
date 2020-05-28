@@ -30,14 +30,29 @@ if(isset($_POST['login']))
         $_SESSION['s_id'] = $getuserdata1['s_id'];
         $_SESSION['sname'] = $getuserdata1['sname'];
         echo "<script> window.setTimeout(function(){ window.location.href='Main/Student/index.php' }, 1000); </script>";
+    }else {
+        $getuser1 = mysqli_query($con, "SELECT * FROM lec WHERE (lname='$uid') AND pass = '$pwd'");
+        $getuserdata1 = mysqli_fetch_assoc($getuser1);
+        $getuserrow1 = mysqli_num_rows($getuser1);
+        if($getuserrow1==1){
+        $_SESSION['lname'] = $getuserdata1['lname'];
+        echo "<script> window.setTimeout(function(){ window.location.href='Main/Lecturer/index.php' }, 1000); </script>";
+    } else {
+        $getuc = mysqli_query($con, "SELECT * FROM uclog WHERE (uname='$uid') AND pass = '$pwd'");
+        $getucs = mysqli_fetch_assoc($getuc);
+        $getucss = mysqli_num_rows($getuc);
+        if($getucss==1){
+        $_SESSION['uname'] = $getucs['uname'];
+        echo "<script> window.setTimeout(function(){ window.location.href='Main/UC/index.php' }, 1000); </script>";
     }
         else {
         echo "<script>alert('Invalid Username or Password'); location.href='login.php';</script>";
         $fmsg = "Invalid Username or Password";
+        }
+       }
+    }    
     }
-}
-    }
-    
+    }    
 }
 
 ?>
@@ -151,7 +166,7 @@ and open the template in the editor.
                                 <div class="input-group-append">
                                     <span class="input-group-text"><i class="fa fa-user"></i></span>
                                 </div>
-                                <input type="text" class="form-control input_user" name="uid" placeholder="Login ID">
+                                <input type="text" class="form-control input_user" name="uid" placeholder="ID | Username if Lecturer / Tutor">
                             </div>
                             <div class="input-group mb-2">
                                 <div class="input-group-append">

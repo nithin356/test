@@ -1,11 +1,13 @@
-<?php include '../../access/connection.php';
+<?php 
+include '../../access/connection.php';
 include '../../access/userlog.php';
-
 if(!$userlogin)
 {
     echo "<script> window.setTimeout(function(){ window.location.href='/test/index.html' }, 0); </script>";
 
 }
+$getall=mysqli_query($con,"SELECT * FROM uclog");
+
 ?>
 <html>
   
@@ -27,7 +29,8 @@ if(!$userlogin)
   <body>
     <!-- Start vertical navbar -->
     <header id="header">
-       <div class="vertical-nav bg-white" id="sidebar">
+       
+    <div class="vertical-nav bg-white" id="sidebar">
           <div class="py-4 px-3 mb-2 mt-2 bg-light">
             <div class="align-items-center" id="half">    
                <a class="navbar-brand text-center" href="#"><h1>C M S</h1></a>
@@ -64,7 +67,7 @@ if(!$userlogin)
               </a>
             </li>
           </ul>
-       </div>
+       </div>    
     </header>
 
     <!-- Start Page content holder -->
@@ -82,13 +85,27 @@ if(!$userlogin)
   
     <div class="row text-white">
     <div class="col-lg-7 mx-auto">
-      <p class="lead">Hello, <?php 
-            if($userlogin){
-            if(isset($_SESSION['userid']))?>
-
-      <b><?php   echo $globaluname; }?></b>
-      <p class="lead text-white">You Can enrol unit and tutorial<a href="#" class="text-white">
-  </p>
+    <p class="lead">Time Table</p>
+      <table style="width: 100%;">
+  <tr>
+    <th>Campus</th>
+    <th>Semester</th>
+    <th>Unit</th>
+    <th>Date</th>
+    <th>From</th>
+    <th>To</th>
+</tr>
+<?php
+  while($getdetails=mysqli_fetch_assoc($getall)){?>
+  <tr>
+  <td><?php echo $getdetails['camp'];?></td>
+  <td><?php echo $getdetails['sem'];?></td>
+  <td><?php echo $getdetails['unit'];?></td>
+  <td><?php echo $getdetails['date_to'];?>,<?php echo $getdetails['day_to'];?></td>
+  <td><?php echo $getdetails['from_time'];?></td>
+  <td><?php echo $getdetails['to_time'];?></td>
+  </tr>
+  <?php }?>
     </div>
   </div>
       

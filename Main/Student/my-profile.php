@@ -86,6 +86,12 @@ if(isset($_POST['submit'])){
                 Enrol Unit and tutorial
               </a>
             </li>
+            </li><li class="nav-item">
+              <a href="timetable.php" class="nav-link text-dark font-italic bg-light">
+                <i class="far fa-images mr-3 text-primary fa-fw"></i>
+              Time Table
+              </a>
+            </li>
             <li class="nav-item">
               <a href="../../access/logout.php" class="nav-link text-dark font-italic bg-light">
                 <i class="far fa-images mr-3 text-primary fa-fw"></i>

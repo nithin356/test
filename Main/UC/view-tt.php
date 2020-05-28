@@ -1,35 +1,11 @@
-<?php include '../../access/connection.php';
-include '../../access/dclogs.php';
-
+<?php 
+include '../../access/connection.php';
+include '../../access/uclogs.php';
 if(!$userlogin)
 {
     echo "<script> window.setTimeout(function(){ window.location.href='/test/index.html' }, 0); </script>";
 }
-$getsem1 = mysqli_query($con, "SELECT * FROM dc");
-if(isset($_POST['submit']))
-{
-  $lec = $_POST['lec'];
-  $pass = md5($_POST['password']);
-
-$unit = $_POST['unit'];
-$getsem = mysqli_query($con, "SELECT * FROM lec where unit='$unit'");
-$getsemdata = mysqli_fetch_assoc($getsem);
-$count = mysqli_num_rows($getsem);
-if ($count > 0) {
-echo "<script>alert('Already Exists'); location.href='dcreg.php';</script>";
-$fmsg = "Already Exists";
-}
-else{
-        $query = mysqli_query($con, "INSERT INTO lec (unit,lname,pass) VALUES ('$unit','$lec','$pass')");
-        if ($query) {
-            echo "<script>alert('staff alloted'); location.href='allotment.php';</script>";
-            $smsg = "Added";
-        } else {
-            echo "<script>alert('staff alloted Falied'); location.href='allotment.php';</script>";
-            echo $fmsg = "Falied";
-        }
-}
-}
+$getall=mysqli_query($con,"SELECT * FROM uclog");
 ?>
 <html>
   
@@ -46,16 +22,13 @@ else{
   
     <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>-->
   </head>
-  <style>
-select,input{
-    width: 100%;
-}
-</style> 
+  
   
   <body>
     <!-- Start vertical navbar -->
     <header id="header">
-       <?php include 'header.php'; ?>
+       
+    <?php include 'header.php'; ?>
     </header>
 
     <!-- Start Page content holder -->
@@ -69,31 +42,40 @@ select,input{
         <div class="separator mt-4"></div>
       
     <!-- content -->
-        
+    <style>
+    table, th, td {
+        border: 1px solid black;
+        color: white;
+    }
+    input{
+     width: 100%;
+    }
+    </style>  
   
     <div class="row text-white">
     <div class="col-lg-7 mx-auto">
-    <form method="POST">
-    <label>Select Unit:*</label>
-    <select name="unit" >
-    <option selected hidden>Select</option>
-    <?php
-    while($getsemdata1 = mysqli_fetch_assoc($getsem1)){
-    ?>
-    <option value="<?php echo $getsemdata1['unit'];?>"><?php echo $getsemdata1['unit'];?></option>
-    <?php } ?>
-</select>
-    <br/>
-    <label>Add Teacher/Lecturer:*</label>
-    <input type=text required name="lec"/>
-    </br>
-    <label>Provide password*</label>
-    <input type=password required name="password"/>
-    <br/>
-    <br/>
-    <input type="submit" name="submit" ></input>
-    </form>
-    </div>
+      <p class="lead">Time Table</p>
+      <table style="width: 100%;">
+  <tr>
+    <th>Campus</th>
+    <th>Semester</th>
+    <th>Unit</th>
+    <th>Date</th>
+    <th>From</th>
+    <th>To</th>
+</tr>
+<?php
+  while($getdetails=mysqli_fetch_assoc($getall)){?>
+  <tr>
+  <td><?php echo $getdetails['camp'];?></td>
+  <td><?php echo $getdetails['sem'];?></td>
+  <td><?php echo $getdetails['unit'];?></td>
+  <td><?php echo $getdetails['date_to'];?>,<?php echo $getdetails['day_to'];?></td>
+  <td><?php echo $getdetails['from_time'];?></td>
+  <td><?php echo $getdetails['to_time'];?></td>
+  </tr>
+  <?php }?>
+  </div>
   </div>
       
     </div>
